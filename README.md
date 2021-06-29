@@ -3,32 +3,27 @@ It is an Personal Assistant, capable to perform many tasks with some unique feat
 
 
 ## Features / Tasks it can perform:  
-1. Game (eg, Rock Paper Scissor with GUI)  
-2. Search anything from wikipedia, google maps, etc  
-3. Play video from YouTube  
-4. Email Sender  
-5. WhatsApp Message Sender  
-6. COVID Tracker  
-7. Weather  
-8. Jokes  
-9. News  
-10. High Security (Face Unlock)  
-11. Capture Photo  
-12. Math Calculations  
-13. Timer  
-14. In-built search image display  
-15. Smart Dictionary Search  
-16. OS Info, Battery Info  
-17. Window, Tab Operations  
-18. Opening Websites  
-19. File Operations (Creating Files)  
-20. Web Automation (HTML Project)    
-21. Coin Toss, Roll Dice  
-22. Translator  
-23. ToDo List  
-24. Directions on Map  
-25. Screenshots  
-26. Volume Control  
+
+1. Search anything from wikipedia, google maps, etc  
+2. Play video from YouTube  
+3. Email Sender  
+4. COVID Tracker  
+5. Weather  
+6. News  
+7. High Security (Face Unlock)  
+8. Math Calculations  
+9. Timer  
+10. In-built search image display  
+11. Smart Dictionary Search  
+12. OS Info, Battery Info  
+13. Window, Tab Operations  
+14. Opening Websites  
+15. File Operations (Creating Files)  
+16. Web Automation (HTML Project)    
+17. Translator  
+18. ToDo List  
+19. Directions on Map  
+20. Volume Control  
 
 ## Modules Requirements and Installation:  
   pip install SpeechRecognition  
@@ -75,8 +70,7 @@ It is an Personal Assistant, capable to perform many tasks with some unique feat
 ## Email Sender  
 - Send an email -> Receiver Email -> Subject -> Message  
 
-## WhatsApp Sender  
-- Send a whatsapp message -> Receiver Phone No -> Message  
+ 
 
 ## COVID Tracker  
 - What is the covid statistics?  
@@ -105,9 +99,7 @@ It is an Personal Assistant, capable to perform many tasks with some unique feat
 - Give my System Information  
 - What's my battery life  
 
-## Selfie / Photo Clicker  
-- Take a Selfie  
-- Click a Photo  
+  
 
 ## Volume Control  
 - Increase the Volume  
@@ -119,9 +111,7 @@ It is an Personal Assistant, capable to perform many tasks with some unique feat
 - Play Captain America Trailer on YouTube  
 - Google I/O on YouTube  
 
-## Image Result  
-- Show the images of Robot  
-- Show the images of Samosa  
+ 
 
 ## Wikipedia Result  
 - Who is Sundar Pichai?  
@@ -136,9 +126,6 @@ It is an Personal Assistant, capable to perform many tasks with some unique feat
 - India on Google Maps  
 - Washington DC on Google Maps  
 
-## Joke Teller  
-- Tell me a joke  
-- Tell me a funny joke  
 
 ## News  
 - Give me some news  
@@ -147,8 +134,7 @@ It is an Personal Assistant, capable to perform many tasks with some unique feat
 ## Weather  
 - What is the weather?  
 
-## ScreenShot  
-- Take a ScreenShot  
+
 
 ## Window Operations  
 - Open Window  
@@ -173,9 +159,7 @@ It is an Personal Assistant, capable to perform many tasks with some unique feat
 - Save that  
 - Press enter  
 
-## Coin / Dice  
-- Toss a coin  
-- Roll a dice  
+ 
 
 ## Time / Date  
 - What is the time?  
@@ -190,11 +174,7 @@ It is an Personal Assistant, capable to perform many tasks with some unique feat
 - Open GitHub  
 - Open CodeChef  
 
-## Game  
-- Let's play a game  
-  - Rock Paper Scissor  
-  - Online Games  
-  
+
 ## Smart Reply  
 - How are you?  
 - Who are you?  
@@ -206,7 +186,7 @@ It is an Personal Assistant, capable to perform many tasks with some unique feat
 
 ## Advance Commands
 - Object Detection
-- Face Mask Detection 
+- Face Detection 
 
 
 
