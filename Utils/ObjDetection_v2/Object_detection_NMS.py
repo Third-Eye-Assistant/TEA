@@ -3,13 +3,9 @@ import numpy as np
 
 class ObjectDetection:
     def __init__(self):
-        # Low Value for more effect
         self.thres = 0.45 # Threshold to detect object
         self.nms_threshold = 0.2
         self.cap = cv2.VideoCapture(0)
-        # self.cap.set(3,1280)
-        # self.cap.set(4,720)
-        # self.cap.set(10,70)
 
     def detect(self,obj_img,show=True,draw=True):
         img = cv2.imread(obj_img)
@@ -18,7 +14,6 @@ class ObjectDetection:
         with open(classFile,'rt') as f:
             classNames = f.read().rstrip('\n').split('\n')
 
-        #print(classNames)
         configPath = 'Utils/ObjDetection_v2/ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt'
         weightsPath = 'Utils/ObjDetection_v2/frozen_inference_graph.pb'
 
@@ -27,18 +22,13 @@ class ObjectDetection:
         net.setInputScale(1.0/ 127.5)
         net.setInputMean((127.5, 127.5, 127.5))
         net.setInputSwapRB(True)
-
-      
             
         classIds, confs, bbox = net.detect(img,confThreshold=self.thres)
         bbox = list(bbox)
         confs = list(np.array(confs).reshape(1,-1)[0])
         confs = list(map(float,confs))
-        #print(type(confs[0]))
-        #print(confs)
 
         indices = cv2.dnn.NMSBoxes(bbox,confs,self.thres,self.nms_threshold) # Non maximum Supression
-        #print(indices)
 
         Obj_names = []
         for i in indices:
@@ -66,7 +56,6 @@ class ObjectDetection:
             with open(classFile,'rt') as f:
                 classNames = f.read().rstrip('\n').split('\n')
 
-            #print(classNames)
             configPath = 'Utils/ObjDetection_v2/ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt'
             weightsPath = 'Utils/ObjDetection_v2/frozen_inference_graph.pb'
 
@@ -75,18 +64,12 @@ class ObjectDetection:
             net.setInputScale(1.0/ 127.5)
             net.setInputMean((127.5, 127.5, 127.5))
             net.setInputSwapRB(True)
-
-        
-                
+               
             classIds, confs, bbox = net.detect(img,confThreshold=self.thres)
             bbox = list(bbox)
             confs = list(np.array(confs).reshape(1,-1)[0])
             confs = list(map(float,confs))
-            #print(type(confs[0]))
-            #print(confs)
-
             indices = cv2.dnn.NMSBoxes(bbox,confs,self.thres,self.nms_threshold) # Non maximum Supression
-            #print(indices)
 
             Obj_names = []
             for i in indices:
@@ -125,8 +108,6 @@ class ObjectDetection:
         while True:
             success,img = self.cap.read()
             classIds, confs, bbox = net.detect(img,confThreshold=self.thres)
-            # print(classIds,bbox)
-
             if len(classIds) != 0:
                 for classId, confidence,box in zip(classIds.flatten(),confs.flatten(),bbox):
                     recbox = False
@@ -144,9 +125,7 @@ class ObjectDetection:
                 output = set(output)
                 self.cap.release()
                 cv2.destroyAllWindows()
-                return output                
-        
-
+                return output                       
 
 if __name__ == "__main__":
     
