@@ -463,14 +463,6 @@ def main(text):
 				speak(f'{i}',True)   ## Added object detection
 			return 
 
-		if 'motion detection mode' in text:
-			mot = motion_det()
-			speak("Detecting motion...",True)	
-			if mot == "Movement":
-				speak("There was a movement",True)
-			else:
-				speak("There was no movement",True)  ## Added motion detection
-			return
 
 		if 'face detection mode' in text:
 			face = face_model()
