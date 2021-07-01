@@ -37,11 +37,9 @@ try:
 	import ToDo
 	import fileHandler
 	from Utils.ObjDetection_v2.Object_detection_NMS import ObjectDetection  # Added object detection
-	
-	from Utils.motion_detector.motion import motion_det  # Added motion detection
-
 	from Utils.Face_detection.face import face_model #face detection
 	from Utils.TextDetection.live_video import live_text #text detection
+	from Utils.TextDetection.script import Text_Summarization #text summarization 
 
 
 except Exception as e:
@@ -486,7 +484,12 @@ def main(text):
 			else:
 				speak("Sorry Unabale To Understand")		
 			return
+		if "text summarization" in text:
+			summ=Text_Summarization(text,size=0.3)
+			s=summ.print_text()
+			speak(f"Summarization text...{s}",True)
 
+			return
 
 		
 
@@ -515,8 +518,9 @@ def main(text):
 		result = normalChat.reply(text)
 		if result != "None": speak(result, True, True)
 		else:
-			speak("Here's what I found on the web... ", True, True)
-			webScrapping.googleSearch(text)
+			speak("I don't understand.", True, True)
+			#webScrapping.googleSearch(text)
+			return
 		
 
 ##################################### DELETE USER ACCOUNT #########################################
