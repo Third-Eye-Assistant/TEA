@@ -39,7 +39,7 @@ try:
 	from Utils.ObjDetection_v2.Object_detection_NMS import ObjectDetection  # Added object detection
 	from Utils.Face_detection.face import face_model #face detection
 	from Utils.TextDetection.live_video import live_text #text detection
-	from Utils.TextDetection.script import Text_Summarization #text summarization 
+	#from Utils.TextDetection.script import Text_Summarization #text summarization 
 
 
 except Exception as e:
@@ -333,9 +333,10 @@ def main(text):
 		
 
 		if 'email' in text:
-			speak('Whom do you want to send the email?', True, True)
-			WAEMPOPUP("Email", "E-mail Address")
-			attachTOframe(rec_email)
+			speak('Whom do you want to send the email?', True)
+			#WAEMPOPUP("Email", "E-mail Address")
+			#attachTOframe(rec_email)
+			rec_email = record(False,False)
 			speak('What is the Subject?', True)
 			subject = record(False, False)
 			speak('What message you want to send ?', True)
@@ -484,10 +485,10 @@ def main(text):
 			else:
 				speak("Sorry Unabale To Understand")		
 			return
-		if "text summarization" in text:
-			summ=Text_Summarization(text,size=0.3)
-			s=summ.print_text()
-			speak(f"Summarization text...{s}",True)
+		# if "text summarization" in text:
+		# 	summ=Text_Summarization(text,size=0.3)
+		# 	s=summ.print_text()
+		# 	speak(f"Summarization text...{s}",True)
 
 			return
 
