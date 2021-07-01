@@ -223,32 +223,6 @@ def giveDirections(startingPoint, destinationPoint):
 def openWebsite(url='https://www.google.com/'):
 	webbrowser.open(url)
 
-def jokes():
-	URL = 'https://icanhazdadjoke.com/'
-	result = requests.get(URL)
-	src = result.content
-
-	soup = BeautifulSoup(src, 'html.parser')
-
-	try:
-		p = soup.find('p')
-		return p.text
-	except Exception as e:
-		raise e
-
-
-def youtube(query):
-	
-	query = query.replace('play',' ')
-	query = query.replace('on youtube',' ')
-	query = query.replace('youtube',' ')
-	
-	results = YoutubeSearch(query,max_results=1).to_dict()
-	
-	webbrowser.open('https://www.youtube.com/watch?v=' + results[0]['id'])
-	return "Enjoy Sir..."
-
-
 def googleSearch(query):
 	if 'image' in query:
 		query += "&tbm=isch"
@@ -259,17 +233,6 @@ def googleSearch(query):
 	webbrowser.open("https://www.google.com/search?q=" + query)
 	return "Here you go..."
 
-
-
-def email(rec_email=None, text="Hello, It's Third Eye here...", sub='Third Eye'):
-	if '@gmail.com' not in rec_email: return
-	s = smtplib.SMTP('smtp.gmail.com', 587)
-	s.starttls()
-	s.login("senderEmail", "senderPassword") # eg, abc@gmail.com (email) and ****(pass)
-	message = 'Subject: {}\n\n{}'.format(sub, text)
-	s.sendmail("senderEmail", rec_email, message)
-	print("Sent")
-	s.quit()
 
 
 def downloadImage(query, n=4):
@@ -296,3 +259,30 @@ def downloadImage(query, n=4):
 			print('Downloaded', count)
 		except Exception as e:
 			raise e
+
+
+
+
+def youtube(query):
+	
+	query = query.replace('play',' ')
+	query = query.replace('on youtube',' ')
+	query = query.replace('youtube',' ')
+	
+	results = YoutubeSearch(query,max_results=1).to_dict()
+	
+	webbrowser.open('https://www.youtube.com/watch?v=' + results[0]['id'])
+	return "Enjoy Sir..."
+
+def email(rec_email=None, text="Hello, It's Third Eye here...", sub='Third Eye'):
+	if '@gmail.com' not in rec_email: return
+	s = smtplib.SMTP('smtp.gmail.com', 587)
+	s.starttls()
+	s.login("tiufyp@gmail.com", "fyp@2021") # eg, abc@gmail.com (email) and ****(pass)
+	message = 'Subject: {}\n\n{}'.format(sub, text)
+	s.sendmail("senderEmail", rec_email, message)
+	print("Sent")
+	s.quit()
+
+
+

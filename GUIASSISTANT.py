@@ -40,7 +40,8 @@ try:
 	
 	from Utils.motion_detector.motion import motion_det  # Added motion detection
 
-	from Utils.Face_detection.face import face_model
+	from Utils.Face_detection.face import face_model #face detection
+	from Utils.TextDetection.live_video import live_text #text detection
 
 
 except Exception as e:
@@ -399,10 +400,6 @@ def main(text):
 				return
 			return
 
-		if "joke" in text:
-			speak('Here is a joke...', True, True)
-			speak(webScrapping.jokes(), True)
-			return
 
 		if isContain(text, ['news']):
 			speak('Getting the latest news...', True, True)
@@ -490,6 +487,22 @@ def main(text):
 			for i in face:
 				speak(f'{i}',True)   ## Added object detection
 			return 
+
+		if "text detection" in text:
+			lt=live_text()
+			predicted_object,text_=lt.run()
+			speak("Detecting text...",True)
+			if(predicted_object in ["Readable","Posters","Id"] ):
+				speak("Do You Want To Read ?", True, True)
+			#add listen function
+				isRead = record(False, False)
+				if("Yes" in isRead):
+					speak(text_,True,True)
+			elif(predicted_object in ["RoadSign","NoImage"]):
+				speak(text_,True,True)
+			else:
+				speak("Sorry Unabale To Understand")		
+			return
 
 
 		
@@ -599,7 +612,7 @@ def showImages(query):
 	Label(imageContainer, image=img3, bg='#EAEAEA').grid(row=1, column=1)
 
 
-############################# WAEM - WhatsApp Email ##################################
+############################# WAEM - Email ##################################
 def sendWAEM():
 	global rec_phoneno, rec_email
 	data = WAEMEntry.get()
@@ -739,9 +752,9 @@ if __name__ == '__main__':
 	for f in (root1, root2, root3):
 		f.grid(row=0, column=0, sticky='news')	
 	
-	################################
+
 	########  CHAT SCREEN  #########
-	################################
+
 
 	#Chat Frame
 	chat_frame = Frame(root1, width=380,height=551,bg=chatBgColor)
@@ -808,9 +821,9 @@ if __name__ == '__main__':
 	botIcon = botIcon.subsample(2,2)
 	
 
-	###########################
+
 	########  SETTINGS  #######
-	###########################
+
 
 	settingsLbl = Label(root2, text='Settings', font=('Arial Bold', 15), bg=background, fg=textColor)
 	settingsLbl.pack(pady=10)
