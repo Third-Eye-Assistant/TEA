@@ -1,6 +1,6 @@
-#########################
-# GLOBAL VARIABLES USED #
-#########################
+
+########################## GLOBAL VARIABLES USED ###################################
+
 ai_name = 'Third Eye'.lower()
 EXIT_COMMANDS = ['bye','exit','quit','shut down', 'shutdown']
 
@@ -31,16 +31,16 @@ try:
 	import appControl
 	import webScrapping
 	from userHandler import UserData
+	import demo_data
 	import timer
 	from FACE_UNLOCKER import clickPhoto, viewPhoto
 	import dictionary
 	import ToDo
 	import fileHandler
 	from Utils.ObjDetection_v2.Object_detection_NMS import ObjectDetection  # Added object detection
-	
-	from Utils.motion_detector.motion import motion_det  # Added motion detection
-
-	from Utils.Face_detection.face import face_model
+	from Utils.Face_detection.face import face_model #face detection
+	from Utils.TextDetection.live_video import live_text #text detection
+	from Utils.TextDetection.script import Text_Summarization #text summarization 
 
 
 except Exception as e:
@@ -63,7 +63,6 @@ except Exception as e:
 
 ########################################## LOGIN CHECK ##############################################
 try:
-	# engine = pyttsx3.init()
 	user = UserData()
 	user.extractData()
 	ownerName = user.getName().split()[0]
@@ -162,7 +161,6 @@ def changeVoice(e):
 	ChangeSettings(True)
 
 def changeVolume(e):
-	engine = pyttsx3.init()
 	global ass_volume
 	ass_volume = volumeBar.get() / 100
 	engine.setProperty('volume', ass_volume)
@@ -262,12 +260,6 @@ def isContain(txt, lst):
 
 def main(text):
 
-		if "project" in text:
-			if isContain(text, ['make', 'create']):
-				speak("What do you want to give the project name ?", True, True)
-				projectName = record(False, False)
-				speak(fileHandler.CreateHTMLProject(projectName.capitalize()), True)
-				return
 
 		if "create" in text and "file" in text:
 			speak(fileHandler.createFile(text), True, True)
@@ -333,17 +325,7 @@ def main(text):
 			speak('Ok, Timer Started!', True, True)
 			return
 	
-		if 'whatsapp' in text:
-			speak("Sure "+ownerDesignation+"...", True, True)
-			speak('Whom do you want to send the message?', True)
-			WAEMPOPUP("WhatsApp", "Phone Number")
-			attachTOframe(rec_phoneno)
-			speak('What is the message?', True)
-			message = record(False, False)
-			Thread(target=webScrapping.sendWhatsapp, args=(rec_phoneno, message,)).start()
-			speak("Message is on the way. Do not move away from the screen.")
-			attachTOframe("Message Sent", True)
-			return
+		
 
 		if 'email' in text:
 			speak('Whom do you want to send the email?', True, True)
@@ -401,10 +383,6 @@ def main(text):
 				return
 			return
 
-		if "joke" in text:
-			speak('Here is a joke...', True, True)
-			speak(webScrapping.jokes(), True)
-			return
 
 		if isContain(text, ['news']):
 			speak('Getting the latest news...', True, True)
@@ -427,10 +405,7 @@ def main(text):
 			speak(data[-1])
 			return
 
-		if isContain(text, ['screenshot']):
-			Thread(target=appControl.Win_Opt, args=('screenshot',)).start()
-			speak("Screen Shot Taken", True, True)
-			return
+		
 
 		if isContain(text, ['window','close that']):
 			appControl.Win_Opt(text)
@@ -466,6 +441,7 @@ def main(text):
 			return
 
 		if 'my name' in text:
+			ownerName = "TEA"
 			speak('Your name is, ' + ownerName, True, True)
 			return
 
@@ -477,21 +453,77 @@ def main(text):
 				speak(f'{i}',True)   ## Added object detection
 			return 
 
-		if 'motion detection mode' in text:
-			mot = motion_det()
-			speak("Detecting motion...",True)	
-			if mot == "Movement":
-				speak("There was a movement",True)
-			else:
-				speak("There was no movement",True)  ## Added motion detection
-			return
 
 		if 'face detection mode' in text:
 			face = face_model()
 			speak("Detecting Face...",True)	
 			for i in face:
-				speak(f'{i}',True)   ## Added object detection
+				speak(f'{i}',True)   ## Addedd Face detection
 			return 
+		# if "text" in text:
+		# 	isRead = record(False, False)
+		# 	speak(isRead,True,True)
+			
+
+		if "text detection" in text:
+			# isRead = record(False, False)
+
+			lt=live_text()
+			speak("Detecting text...",True)
+			predicted_object,text_=lt.run()
+			speak(f"Detecting text is  {predicted_object}",True)
+			if(predicted_object in ["Readable","Posters","Id"] ):
+				speak("Do You Want To Read ?", True, True)
+			
+			#add listen function
+				isRead = record(False, False)
+				if("yes" in isRead):
+					speak(text_,True,True)
+					return
+				elif("no" in isRead):
+					return
+					
+	
+			else:
+				return
+		if "test" in text:
+			for key in demo_data.data_dict.keys():
+				speak(f" {demo_data.data_dict[key][0]} ",True)
+			
+			speak(f"Which one you want to summarize",True)
+			listen = record(False, False)
+
+		
+			if(listen=='first'):
+				speak(f"Here What i found to summarize",True)
+				speak(f"{ {demo_data.data_dict['first'][0]} }",True)
+				summ=Text_Summarization(demo_data.data_dict['first'][1],size=0.3)
+			elif(listen=='second'):
+				speak(f"Here What i found to summarize",True)
+				speak(f" {demo_data.data_dict['second'][0]} ",True)
+				summ=Text_Summarization(demo_data.data_dict['second'][1],size=0.3)
+			elif(listen=='third'):
+				speak(f"Here What i found to summarize",True)
+				speak(f" {demo_data.data_dict['second'][0]} ",True)
+				summ=Text_Summarization(demo_data.data_dict['third'][1],size=0.3)
+			else:
+				speak(f"Sorry Don't Understand. so  i am selecting {demo_data.data_dict['third'][0]}",True)
+		
+				summ=Text_Summarization(demo_data.data_dict['third'][1],size=0.3)
+
+
+
+			
+			s=summ.print_text()
+			speak(f"summarization done .Do you Want to hear it? ",True)
+			isRead = record(False, False)
+			if("yes" in isRead):
+				speak(f"Summarization text is...{s}",True)
+				return
+			elif("no" in isRead):
+				speak(f"Thank You Sir!",True)
+				return
+			
 
 
 		
@@ -521,8 +553,9 @@ def main(text):
 		result = normalChat.reply(text)
 		if result != "None": speak(result, True, True)
 		else:
-			speak("Here's what I found on the web... ", True, True)
-			webScrapping.googleSearch(text)
+			speak("I don't understand.", True, True)
+			#webScrapping.googleSearch(text)
+			return
 		
 
 ##################################### DELETE USER ACCOUNT #########################################
@@ -601,7 +634,7 @@ def showImages(query):
 	Label(imageContainer, image=img3, bg='#EAEAEA').grid(row=1, column=1)
 
 
-############################# WAEM - WhatsApp Email ##################################
+############################# WAEM - Email ##################################
 def sendWAEM():
 	global rec_phoneno, rec_email
 	data = WAEMEntry.get()
@@ -741,9 +774,9 @@ if __name__ == '__main__':
 	for f in (root1, root2, root3):
 		f.grid(row=0, column=0, sticky='news')	
 	
-	################################
+
 	########  CHAT SCREEN  #########
-	################################
+
 
 	#Chat Frame
 	chat_frame = Frame(root1, width=380,height=551,bg=chatBgColor)
@@ -810,9 +843,9 @@ if __name__ == '__main__':
 	botIcon = botIcon.subsample(2,2)
 	
 
-	###########################
+
 	########  SETTINGS  #######
-	###########################
+
 
 	settingsLbl = Label(root2, text='Settings', font=('Arial Bold', 15), bg=background, fg=textColor)
 	settingsLbl.pack(pady=10)
